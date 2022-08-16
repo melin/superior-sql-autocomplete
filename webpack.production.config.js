@@ -1,7 +1,7 @@
 var webpack = require('webpack');
 
 module.exports = {
-  mode: 'development',
+  mode: 'production',
 
   entry: './src/main.ts',
 
@@ -21,7 +21,7 @@ module.exports = {
   },
 
   plugins: [
-    new webpack.ProvidePlugin({process: 'process/browser'})
+    new webpack.ProvidePlugin({process: 'process/browser'}),
   ],
 }
 

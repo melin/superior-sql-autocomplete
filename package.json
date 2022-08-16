@@ -1,7 +1,8 @@
 {
   "scripts": {
+    "start": "webpack serve --open",
     "build": "webpack --stats-error-details",
-    "release": "NODE_ENV=production webpack",
+    "release": "NODE_ENV=production webpack --config ./webpack.production.config.js",
     "watch": "webpack -w",
     "antlr4ts": "antlr4ts -visitor -Xexact-output-dir -o src/spark -package parsers antlr4/SparkSqlLexer.g4 antlr4/SparkSqlParser.g4"
   },
