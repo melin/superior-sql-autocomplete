@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "incremental": true,
+    "declaration": true,
+    "sourceMap": true,
+    "target": "ES6",
+    "module": "commonjs",
+    "baseUrl": "./src",
+    "moduleResolution": "node",
+    "paths": {
+      "@/*": ["./*"]
+    }
+  },
+  "include": ["**/*.ts"]
+}
+
