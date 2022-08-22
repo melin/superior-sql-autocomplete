@@ -1,27 +1,36 @@
-var webpack = require('webpack');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const webpack = require('webpack');
+const path = require('path');
 
 module.exports = {
-  mode: 'development',
+    mode: 'production', // development
 
-  entry: './src/main.ts',
+    entry: './src/SqlAutComplete.ts',
+    output: {
+        path: path.resolve(__dirname, "dist"),
+        filename: "SqlAutComplete.min.js"
+    },
 
-  module: {
-    rules: [
-      {
-        test: /\.ts$/,
-        use: 'ts-loader',
-      },
+    module: {
+        rules: [
+            {
+                test: /\.ts$/,
+                use: 'ts-loader',
+            },
+        ],
+    },
+
+    resolve: {
+        extensions: [
+            '.ts', '.js',
+        ]
+    },
+
+    plugins: [
+        new webpack.ProvidePlugin({process: 'process/browser'}),
+        new CleanWebpackPlugin({
+            cleanAfterEveryBuildPatterns: ['*.LICENSE.txt'],
+        })
     ],
-  },
-
-  resolve: {
-    extensions: [
-      '.ts', '.js',
-    ]
-  },
-
-  plugins: [
-    new webpack.ProvidePlugin({process: 'process/browser'})
-  ],
 }
 

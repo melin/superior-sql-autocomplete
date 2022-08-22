@@ -6,7 +6,4 @@ Spark sql Editor 代码自动提示
 2. https://github.com/modeldba/sql-autocomplete
 3. https://github.com/mike-lischke/antlr4-c3
 4. https://www.npmjs.com/package/tsproject
-
-https://github.com/modeldba/sql-autocomplete/blob/main/src/SQLAutocomplete.ts
-
-https://github.com/modeldba/antlr4ts-sql/blob/main/src/antlr4tsSQL.ts
+5. https://juejin.cn/post/6943890786370977800
