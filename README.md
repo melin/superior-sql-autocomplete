@@ -1,5 +1,7 @@
 Spark sql Editor 代码自动提示
 
+mysql-workbench 实现: https://github.com/mysql/mysql-workbench/blob/8.0/library/parsers/code-completion/CodeCompletionCore.cpp
+
 # 参考项目
 
 1. https://github.com/tunnelvisionlabs/antlr4ts
