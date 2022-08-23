@@ -1,4 +1,10 @@
-import { CommonTokenStream, ANTLRErrorListener, Token, ANTLRInputStream, ConsoleErrorListener } from "antlr4ts";
+import {
+    CommonTokenStream,
+    ANTLRErrorListener,
+    Token,
+    ConsoleErrorListener,
+    CharStreams
+} from "antlr4ts";
 import { PredictionMode } from "antlr4ts/atn";
 
 import { CodeCompletionCore } from "antlr4-c3";
@@ -30,7 +36,7 @@ export class SqlAutoComplete {
         const core = new CodeCompletionCore(parser);
 
         const preferredRulesTable = [SparkSqlParser.RULE_multipartIdentifier, SparkSqlParser.RULE_tableIdentifier]
-        const preferredRulesColumn = []
+        const preferredRulesColumn = [SparkSqlParser.RULE_identifier]
         const preferredRuleOptions = [preferredRulesTable, preferredRulesColumn];
 
         const ignoreTokens = [
@@ -121,7 +127,7 @@ export class SqlAutoComplete {
     }
 
     _getTokens(sqlScript: string, errorListeners?: ANTLRErrorListener<any>[]): CommonTokenStream {
-        const chars = new ANTLRInputStream(sqlScript);
+        const chars = CharStreams.fromString(sqlScript)
         const caseChangingCharStream = new CaseChangingStream(chars, true);
         let lexer: Lexer = new SparkSqlLexer(caseChangingCharStream);
         if (errorListeners !== null && errorListeners !== undefined) {

@@ -13,9 +13,18 @@ describe('Select 语句', () => {
             new AutocompleteOption("FROM", AutocompleteOptionType.KEYWORD))
     });
 
-    it('tablename', () => {
+    it('tableName', () => {
         const tableNames = ["hello", "demo_tbl_one"]
-        expect(new SqlAutoComplete(tableNames, []).autocomplete("select * from demo_")).toContainEqual(
+        expect(new SqlAutoComplete(tableNames, [])
+            .autocomplete("select * from demo_")).toContainEqual(
+            new AutocompleteOption("demo_tbl_one", AutocompleteOptionType.TABLE))
+    });
+
+    it('columnName', () => {
+        const tableNames = ["hello", "demo_tbl_one"]
+        const columnNames = ["name", "address"]
+        expect(new SqlAutoComplete(tableNames, columnNames)
+            .autocomplete("select na from demo_tbl_one", 9)).toContainEqual(
             new AutocompleteOption("demo_tbl_one", AutocompleteOptionType.TABLE))
     });
 });
