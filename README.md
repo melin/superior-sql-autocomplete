@@ -2,10 +2,12 @@ Spark sql Editor 代码自动提示
 
 mysql-workbench 实现: https://github.com/mysql/mysql-workbench/blob/8.0/library/parsers/code-completion/CodeCompletionCore.cpp
 
-# 参考项目
+## 相关项目
+1. https://gitee.com/melin/bee
+2. https://github.com/melin/superior-sql-parser
+3. https://github.com/melin/superior-sql-formatter
+4. https://github.com/melin/superior-sql-autocomplete
+5. https://github.com/melin/datatunnel
+6. https://github.com/melin/flink-jobserver
+6. https://github.com/melin/spark-jobserver
 
-1. https://github.com/tunnelvisionlabs/antlr4ts
-2. https://github.com/modeldba/sql-autocomplete
-3. https://github.com/mike-lischke/antlr4-c3
-4. https://www.npmjs.com/package/tsproject
-5. https://juejin.cn/post/6943890786370977800
