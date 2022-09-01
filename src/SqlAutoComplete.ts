@@ -8,14 +8,15 @@ import {
 import { PredictionMode } from "antlr4ts/atn";
 
 import { CodeCompletionCore } from "antlr4-c3";
-import {Lexer} from "antlr4ts/Lexer";
-import {Parser} from "antlr4ts/Parser";
 import { CaseChangingStream } from "./models/CaseChangingStream";
 import { SimpleSQLTokenizer } from "./models/SimpleSQLTokenizer";
 import { AutocompleteOption } from "./models/AutocompleteOption";
 import { SparkSqlLexer } from "./spark/SparkSqlLexer";
 import { SparkSqlParser } from "./spark/SparkSqlParser";
 import { AutocompleteOptionType } from "./models/AutocompleteOptionType";
+import {TableRefListener} from "./models/TableRefListener";
+import {ParseTreeWalker} from "antlr4ts/tree";
+import {SparkSqlParserListener} from "@/spark/SparkSqlParserListener";
 
 export class SqlAutoComplete {
     tableNames: string[] = [];
@@ -33,6 +34,9 @@ export class SqlAutoComplete {
     autocomplete(sqlScript: string, atIndex?: number): AutocompleteOption[] {
         const tokens = this._getTokens(sqlScript);
         const parser = this._getParser(tokens);
+
+        const listener: SparkSqlParserListener = new TableRefListener();
+        ParseTreeWalker.DEFAULT.walk(listener, parser.singleStatement())
         const core = new CodeCompletionCore(parser);
 
         const preferredRulesTable = [SparkSqlParser.RULE_multipartIdentifier, SparkSqlParser.RULE_tableIdentifier]
@@ -112,6 +116,7 @@ export class SqlAutoComplete {
             }
         }
         if (isColumnCandidatePosition) {
+            console.info("============")
             for (const columnName of this.columnNames) {
                 if (columnName.toUpperCase().startsWith(tokenString.toUpperCase())) {
                     autocompleteOptions.unshift(new AutocompleteOption(columnName, AutocompleteOptionType.COLUMN));
@@ -129,7 +134,7 @@ export class SqlAutoComplete {
     _getTokens(sqlScript: string, errorListeners?: ANTLRErrorListener<any>[]): CommonTokenStream {
         const chars = CharStreams.fromString(sqlScript)
         const caseChangingCharStream = new CaseChangingStream(chars, true);
-        let lexer: Lexer = new SparkSqlLexer(caseChangingCharStream);
+        let lexer = new SparkSqlLexer(caseChangingCharStream);
         if (errorListeners !== null && errorListeners !== undefined) {
             lexer.removeErrorListener(ConsoleErrorListener.INSTANCE);
             for (const listener of errorListeners) {
@@ -139,8 +144,8 @@ export class SqlAutoComplete {
         return new CommonTokenStream(lexer);
     }
 
-    _getParser(tokens: CommonTokenStream, errorListeners?: ANTLRErrorListener<any>[]): Parser {
-        let parser: Parser = new SparkSqlParser(tokens);
+    _getParser(tokens: CommonTokenStream, errorListeners?: ANTLRErrorListener<any>[]): SparkSqlParser {
+        let parser = new SparkSqlParser(tokens);
         if (errorListeners !== null && errorListeners !== undefined) {
             parser.removeErrorListener(ConsoleErrorListener.INSTANCE);
             for (const listener of errorListeners) {

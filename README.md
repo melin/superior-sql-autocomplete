@@ -1,6 +1,7 @@
 Spark sql Editor 代码自动提示
 
-mysql-workbench 实现: https://github.com/mysql/mysql-workbench/blob/8.0/library/parsers/code-completion/CodeCompletionCore.cpp
+https://neuroning.com/post/implementing-code-completion-for-vscode-with-antlr/
+https://github.com/forcedotcom/soql-language-server/blob/7ebbd4c59535ccaffeb896d9904e1c5148293deb/src/completion.ts
 
 ## 相关项目
 1. https://gitee.com/melin/bee
